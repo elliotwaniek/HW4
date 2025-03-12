@@ -20,3 +20,10 @@ class PlacesController < ApplicationController
   end
 
 end
+class PlacesController < ApplicationController
+  before_action :require_login
+
+  def index
+    @places = current_user.places
+  end
+end
