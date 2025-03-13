@@ -3,9 +3,9 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:email])
+    @user = User.find_by(email: params[:email])
     if BCrypt::Password.new(@user["password"]) == params["password"]
-      session[:user_id] = user.id
+      session[:user_id] = @user.id
       redirect_to places_path, notice: "Logged in successfully!"
     else
       flash[:alert] = "Invalid email or password"
