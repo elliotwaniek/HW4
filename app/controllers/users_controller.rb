@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     @user["email"] = params["email"]
     @user["password"] = BCrypt::Password.create(params["password"])
     @user.save!
-    redirect_to "/"
+    session[:user_id] = @user.id
+    redirect_to places_path, notice: "Signed up successfully!"
   end
 end

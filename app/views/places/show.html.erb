@@ -1,16 +1,22 @@
-<h1><%= @place["name"] %></h1>
+<h1 class="mb-4"><%= @place.name %></h1>
 
-<h2>My Entries</h2>
-<% for entry in @entries %>
-  <h3><%= entry["title"] %></h3>
-  <h4><%= entry["occurred_on"] %></h4>
-  <p><%= entry["description"] %></p>
+<h2 class="mb-3">My Entries</h2>
+
+<% if @entries.any? %>
+  <div class="mb-4">
+    <% @entries.each do |entry| %>
+      <div class="mb-4">
+        <div class="fs-5 mb-1"><%= entry.title %></div>
+        <div class="text-secondary"><%= entry.description %></div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-muted mb-4">No entries yet.</p>
 <% end %>
 
-<p>
-  <a href="/entries/new?place_id=<%= @place["id"] %>">New Entry</a>
-</p>
+<div class="mb-3">
+  <%= link_to "New Entry", new_entry_path(place_id: @place.id), class: "btn btn-dark" %>
+</div>
 
-<p>
-  <a href="/places">Back to All Places</a>
-</p>
+<%= link_to "Back to All Places", places_path, class: "text-primary text-decoration-underline" %>
