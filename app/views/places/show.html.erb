@@ -3,11 +3,17 @@
 <h2 class="mb-3">My Entries</h2>
 
 <% if @entries.any? %>
-  <div class="mb-4">
+  <div class="d-flex flex-row gap-4 mb-4 flex-wrap">
     <% @entries.each do |entry| %>
-      <div class="mb-4">
-        <div class="fs-5 mb-1"><%= entry.title %></div>
-        <div class="text-secondary"><%= entry.description %></div>
+      <div class="flex-grow-0" style="min-width: 300px; max-width: 400px;">
+        <h3 class="h5 mb-1"><%= entry.title %></h3>
+        <div class="text-secondary mb-1"><%= entry.occurred_on.strftime("%B %d, %Y") %></div>
+        <div class="text-secondary mb-2"><%= entry.description %></div>
+        <% if entry.uploaded_image.attached? %>
+          <%= image_tag rails_blob_path(entry.uploaded_image), class: "img-fluid mb-2", style: "max-height: 300px; object-fit: cover;" %>
+        <% else %>
+          <div class="text-muted fst-italic">(No image)</div>
+        <% end %>
       </div>
     <% end %>
   </div>
